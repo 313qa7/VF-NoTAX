@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="theme-color" content="#28a745">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="application-name" content="VF - NoTAX">
+    <meta name="apple-mobile-web-app-title" content="VF - NoTAX">
+
+    <!-- PWA Support -->
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='images/icon-192x192.png') }}">
+    <title>{% block title %}VF - NoTAX{% endblock %}</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="خدمة شحن رصيد فودافون بأقل تكلفة - وفر 23% من قيمة الرصيد مع خدمة شحن سريعة وآمنة على مدار الساعة. رصيد صافي بدون ضريبة.">
+    <meta name="keywords" content="شحن رصيد, فودافون, توفير, رصيد فودافون, شحن رصيد بخصم, شحن رصيد مصر, شحن فودافون, خصم على الرصيد, رصيد صافي, بدون ضريبة, ضريبة الرصيد, شحن رصيد فودافون, رصيد فودافون بخصم, شحن رصيد بدون ضريبة, شحن رصيد فودافون بدون ضريبة, شحن رصيد فودافون بخصم">
+    <meta name="author" content="VF - NoTAX">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+    <!-- Open Graph Meta Tags for Social Media -->
+    <meta property="og:title" content="VF - NoTAX - وفر 23% من قيمة الرصيد - رصيد صافي بدون ضريبة">
+    <meta property="og:description" content="احصل على رصيد فودافون بأقل تكلفة مع خدمة شحن سريعة وآمنة على مدار الساعة. رصيد صافي بدون ضريبة. شحن رصيد فودافون بخصم.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vfnotax.onrender.com/">
+    <meta property="og:image" content="https://vfnotax.onrender.com/static/images/logo.png">
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="VF - NoTAX - وفر 23% من قيمة الرصيد - رصيد صافي بدون ضريبة">
+    <meta name="twitter:description" content="احصل على رصيد فودافون بأقل تكلفة مع خدمة شحن سريعة وآمنة على مدار الساعة. رصيد صافي بدون ضريبة. شحن رصيد فودافون بخصم.">
+    <meta name="twitter:image" content="https://vfnotax.onrender.com/static/images/logo.png">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://vfnotax.onrender.com{{ request.path }}">
+
+    <!-- Favicon -->
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.rtl.min.css" as="style">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" as="style">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.min.css') }}">
+
+    <style>
+        /* أنماط شريط المطور */
+        .developer-banner {
+            background: linear-gradient(135deg, #000000 0%, #222222 100%);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+
+        .developer-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 40%, rgba(255, 255, 255, 0.1) 50%, transparent 60%);
+            transform: rotateZ(30deg);
+            animation: shine 3s infinite;
+        }
+
+        .developer-content {
+            font-size: 1.1rem;
+            padding: 5px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            flex-wrap: nowrap;
+        }
+
+        .developer-name {
+            color: #ffffff;
+            font-weight: 700;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            padding: 0 5px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .developer-name:hover {
+            transform: scale(1.05);
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+        }
+
+        .developer-name::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            bottom: 0;
+            left: 0;
+            background-color: #ffffff;
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease-out;
+        }
+
+        .developer-name:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        .email-icon {
+            font-size: 0.8em;
+            opacity: 0.8;
+            vertical-align: middle;
+            transition: all 0.3s ease;
+            margin-top: -2px;
+        }
+
+        .developer-name:hover .email-icon {
+            opacity: 1;
+            transform: translateY(-2px);
+        }
+
+        @keyframes shine {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+
+        /* تحسينات للأجهزة المحمولة */
+        @media (max-width: 576px) {
+            .developer-content {
+                font-size: 0.95rem;
+                line-height: 1.4;
+            }
+
+            .developer-banner {
+                padding: 5px 0;
+            }
+        }
+
+
+    </style>
+
+    {% block head %}{% endblock %}
+
+    <!-- كود Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5129063652941579" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="prayer-banner text-center py-2 mb-2">
+        <h5 class="mb-0 animate__animated animate__flash animate__infinite animate__slow">
+            <i class="bi bi-star-fill text-warning me-2"></i>
+            كسبان اللي يوحد الله و يصلي على النبي
+            <i class="bi bi-star-fill text-warning ms-2"></i>
+        </h5>
+    </div>
+
+    <!-- Developer Credit Banner -->
+    <div class="developer-banner text-center py-2 mb-2">
+        <div class="developer-content animate__animated animate__fadeIn">
+            <i class="bi bi-code-slash text-white me-2"></i>
+            <span>الموقع عمله</span>
+            <a href="mailto:313qa7@gmail.com" class="developer-name ms-1 me-1 text-decoration-none">
+                <span>Abdallah AlKhateb</span>
+                <i class="bi bi-envelope-fill ms-1 email-icon"></i>
+            </a>
+            <i class="bi bi-code-slash text-white ms-2"></i>
+        </div>
+    </div>
+
+    <div class="support-banner text-center py-2 mb-3">
+        <div class="d-flex align-items-center justify-content-center">
+            <i class="bi bi-whatsapp text-success me-2 fs-4"></i>
+            <p class="mb-0">لو في أي مشكلة في الموقع كلمنا على واتساب <strong>01012874414</strong></p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1 style="color: #28a745;">VF - NoTAX</h1>
+            <p>اشحن رصيدك بأرخص سعر</p>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Defer non-critical JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" defer></script>
+
+    <!-- Service Worker Registration -->
+    <script src="{{ url_for('static', filename='js/sw-register.js') }}" defer></script>
+
+
+
+    <!-- Schema.org markup for Google -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "VF - NoTAX - رصيد صافي بدون ضريبة",
+      "url": "https://vfnotax.onrender.com/",
+      "description": "خدمة شحن رصيد فودافون بأقل تكلفة - وفر 23% من قيمة الرصيد مع خدمة شحن سريعة وآمنة على مدار الساعة. رصيد صافي بدون ضريبة.",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://vfnotax.onrender.com/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "keywords": "شحن رصيد, فودافون, توفير, رصيد فودافون, شحن رصيد بخصم, شحن رصيد مصر, شحن فودافون, خصم على الرصيد, رصيد صافي, بدون ضريبة, ضريبة الرصيد"
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "VF - NoTAX - رصيد صافي بدون ضريبة",
+      "url": "https://vfnotax.onrender.com/",
+      "logo": "https://vfnotax.onrender.com/static/images/logo.png",
+      "description": "خدمة شحن رصيد فودافون بأقل تكلفة - وفر 23% من قيمة الرصيد مع خدمة شحن سريعة وآمنة على مدار الساعة. رصيد صافي بدون ضريبة.",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+201012874414",
+        "contactType": "customer service",
+        "availableLanguage": "Arabic"
+      },
+      "sameAs": [
+        "https://www.facebook.com/vfnotax",
+        "https://www.instagram.com/vfnotax",
+        "https://twitter.com/vfnotax"
+      ],
+      "offers": {
+        "@type": "Offer",
+        "description": "شحن رصيد فودافون بخصم 23% - رصيد صافي بدون ضريبة",
+        "priceCurrency": "EGP"
+      }
+    }
+    </script>
+
+</body>
+</html>

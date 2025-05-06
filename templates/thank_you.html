@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}VF - NoTAX - شكراً لك{% endblock %}
+
+{% block head %}
+<script>
+    // تحسين أداء JavaScript - استخدام DOMContentLoaded بدلاً من window.onload
+    document.addEventListener('DOMContentLoaded', function() {
+        // الحصول على الروابط والرسائل من الخادم
+        var whatsappMessage = `{{ whatsapp_message|replace('\n', '\\n')|safe }}`;
+        var primaryUrl = "{{ whatsapp_url_alt }}";  // رابط wa.me
+        var fallbackUrl = "{{ whatsapp_url }}";     // رابط api.whatsapp.com
+
+        // تحديث زر الواتساب الرئيسي فوراً
+        var mainButton = document.getElementById('whatsapp-button');
+        if (mainButton) {
+            mainButton.setAttribute('data-url', primaryUrl);
+            mainButton.setAttribute('data-fallback', fallbackUrl);
+        }
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="thank-you">
+    <h2>شكراً على طلبك!</h2>
+    <div class="alert alert-success mb-4">
+        <p>استلمنا طلبك بنجاح.</p>
+        <p><strong>مش هنشحن الرصيد غير لما تبعت تفاصيل الطلب وسكرين شوت بالتحويل على الواتساب.</strong></p>
+        <div class="text-center mt-3">
+            <i class="bi bi-arrow-down fs-1 text-success animate__animated animate__bounce animate__infinite"></i>
+        </div>
+    </div>
+
+    <div class="d-grid gap-3 mb-4">
+        <!-- زر إرسال تفاصيل الطلب عبر واتساب -->
+        <a href="#" id="whatsapp-button"
+           onclick="sendWhatsApp()"
+           class="btn btn-success btn-lg">
+            <i class="bi bi-whatsapp me-2"></i>ابعت تفاصيل الطلب على واتساب
+        </a>
+    </div>
+
+    <!-- تم إزالة الرابط الاحتياطي بناءً على طلب العميل -->
+
+    <script>
+        // دالة محسنة لإرسال رسالة واتساب
+        function sendWhatsApp() {
+            var button = document.getElementById('whatsapp-button');
+            var primaryUrl = button ? button.getAttribute('data-url') : "{{ whatsapp_url_alt }}";
+
+            // استخدام الرابط الأساسي مباشرة لتحسين الأداء
+            window.location.href = primaryUrl;
+            return false;
+        }
+    </script>
+
+    <!-- تم إزالة العناصر المخفية غير الضرورية لتحسين الأداء -->
+
+    <p>هنشحنلك الرصيد خلال دقايق وبحد أقصى 30 دقيقة من وقت ما نتأكد من التحويل.</p>
+
+
+
+    <div class="alert alert-danger mb-4">
+        <p><strong>تحذير:</strong> لو عدلت في رسالة الطلب هيتم حظر رقمك نهائي.</p>
+    </div>
+
+    <div class="alert alert-info mb-4">
+        <p>عندك أي سؤال؟ كلمنا على الواتساب: <strong>+201012874414</strong></p>
+    </div>
+
+    <a href="{{ url_for('index') }}" class="btn btn-primary">ارجع للصفحة الرئيسية</a>
+</div>
+{% endblock %}

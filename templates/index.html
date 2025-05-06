@@ -1,0 +1,364 @@
+{% extends 'base.html' %}
+
+{% block title %}VF - NoTAX - الصفحة الرئيسية{% endblock %}
+
+{% block content %}
+<style>
+    /* أنماط نموذج إدخال الرصيد - تصميم أسود وأبيض */
+    .balance-card {
+        border: 3px solid #000;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        margin-bottom: 40px;
+        background-color: #fff;
+        transform: scale(1.02);
+        transition: all 0.3s ease;
+        position: relative;
+        z-index: 10;
+    }
+
+    .balance-card:hover {
+        transform: scale(1.03);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .balance-title {
+        font-size: 28px;
+        font-weight: 700;
+        color: #000;
+        margin-bottom: 25px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .balance-label {
+        font-size: 18px;
+        font-weight: 600;
+        color: #000;
+        margin-bottom: 10px;
+    }
+
+    .balance-input {
+        height: 60px;
+        font-size: 24px;
+        font-weight: 600;
+        border: 2px solid #000;
+        border-radius: 10px;
+        padding: 10px 15px;
+        color: #000;
+        background-color: #fff;
+        transition: all 0.3s ease;
+    }
+
+    .balance-input:focus {
+        border-color: #000;
+        box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.2);
+    }
+
+    .balance-hint {
+        font-size: 16px;
+        color: #555;
+        margin-top: 10px;
+    }
+
+    .balance-button {
+        font-size: 20px;
+        font-weight: 700;
+        padding: 15px 30px;
+        margin-top: 20px;
+        background-color: #000;
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+    }
+
+    .balance-button:hover {
+        background-color: #333;
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    /* تحسينات للأجهزة المحمولة */
+    @media (max-width: 576px) {
+        .balance-title {
+            font-size: 24px;
+        }
+
+        .balance-input {
+            height: 55px;
+            font-size: 22px;
+        }
+
+        .balance-button {
+            font-size: 18px;
+            padding: 12px 25px;
+        }
+    }
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card balance-card">
+            <div class="card-body">
+                <h2 class="card-title text-center mb-4 balance-title">اكتب الرصيد اللي عايزه</h2>
+                <form method="POST" action="{{ url_for('index') }}" id="balanceForm">
+                    <div class="form-group mb-4">
+                        <label for="net_balance" class="form-label balance-label">الرصيد الصافي (بالجنيه):</label>
+                        <input type="number" inputmode="numeric" pattern="[0-9]*" class="form-control balance-input" id="net_balance" name="net_balance" min="20" required>
+                        <small class="form-text balance-hint">اكتب الرصيد اللي عايز تشحنه (من غير ضرايب)</small>
+                    </div>
+                    <button type="submit" class="btn w-100 balance-button" id="calculateBtn">احسب السعر</button>
+                </form>
+
+                <script>
+                    // تحسين التوافق مع جميع الأجهزة وتسريع الأداء
+                    document.addEventListener('DOMContentLoaded', function() {
+                        var form = document.getElementById('balanceForm');
+                        var calculateBtn = document.getElementById('calculateBtn');
+                        var inputField = document.getElementById('net_balance');
+
+                        if (inputField) {
+                            // استخدام passive: true لتحسين الأداء على الأجهزة اللمسية
+                            inputField.addEventListener('input', function(e) {
+                                this.value = this.value.replace(/[^0-9]/g, '');
+                            }, { passive: true });
+                        }
+
+                        if (form) {
+                            form.addEventListener('submit', function(e) {
+                                // التحقق من صحة الإدخال
+                                var value = parseInt(inputField.value);
+                                if (isNaN(value) || value < 20) {
+                                    e.preventDefault();
+                                    alert('معلش، أقل رصيد ممكن تشحنه هو 20 جنيه!');
+                                    return false;
+                                }
+                            });
+                        }
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="alert alert-danger text-center mb-4">
+    <h4 class="alert-heading"><i class="bi bi-exclamation-triangle-fill me-2"></i>خلي بالك</h4>
+    <p class="mb-0"><strong>الخدمة دي لأرقام فودافون بس</strong></p>
+</div>
+
+<div class="stats-container mb-4">
+    <div class="stats-card">
+        <div class="stats-header">
+            <div class="stats-icon">
+                <i class="bi bi-graph-up-arrow"></i>
+            </div>
+            <h4>أرقام وإحصائيات</h4>
+        </div>
+        <div class="stats-body">
+            <div class="stats-counter">
+                <div class="counter-value" id="ordersCounter">0</div>
+                <div class="counter-label">عميل استخدم الخدمة بنجاح</div>
+            </div>
+            <div class="stats-decoration">
+                <div class="decoration-circle"></div>
+                <div class="decoration-line"></div>
+                <div class="decoration-circle"></div>
+            </div>
+            <div class="stats-message">
+                شكراً على ثقتكم فينا
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .stats-container {
+        padding: 0 10px;
+    }
+    .stats-card {
+        background: linear-gradient(135deg, #1e5799 0%, #207cca 50%, #2989d8 100%);
+        border-radius: 15px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        color: white;
+        overflow: hidden;
+        position: relative;
+        transform-style: preserve-3d;
+        transition: all 0.3s ease;
+    }
+    .stats-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+    }
+    .stats-card::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%);
+        transform: rotateZ(30deg);
+        animation: shine 3s infinite;
+    }
+    @keyframes shine {
+        0% { transform: translateX(-100%) rotateZ(30deg); }
+        100% { transform: translateX(100%) rotateZ(30deg); }
+    }
+    .stats-header {
+        background-color: rgba(0,0,0,0.2);
+        padding: 15px;
+        text-align: center;
+        position: relative;
+    }
+    .stats-icon {
+        background-color: #ffcc00;
+        border-radius: 50%;
+        color: #1e5799;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        margin-bottom: 10px;
+        font-size: 24px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    .stats-header h4 {
+        margin: 0;
+        font-weight: bold;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    }
+    .stats-body {
+        padding: 20px;
+        text-align: center;
+    }
+    .stats-counter {
+        margin-bottom: 20px;
+    }
+    .counter-value {
+        font-size: 60px;
+        font-weight: bold;
+        line-height: 1;
+        text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+        background: linear-gradient(to right, #ffffff, #ffcc00);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        display: inline-block;
+    }
+    .counter-label {
+        font-size: 18px;
+        margin-top: 5px;
+    }
+    .stats-decoration {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 15px 0;
+    }
+    .decoration-circle {
+        width: 10px;
+        height: 10px;
+        background-color: #ffcc00;
+        border-radius: 50%;
+    }
+    .decoration-line {
+        height: 2px;
+        flex-grow: 1;
+        background: linear-gradient(to right, transparent, #ffcc00, transparent);
+        margin: 0 10px;
+    }
+    .stats-message {
+        font-style: italic;
+        opacity: 0.8;
+    }
+    @media (max-width: 576px) {
+        .counter-value {
+            font-size: 48px;
+        }
+        .counter-label {
+            font-size: 16px;
+        }
+    }
+</style>
+
+<script>
+    // عداد متحرك لعرض عدد الطلبات
+    document.addEventListener('DOMContentLoaded', function() {
+        const finalValue = {{ total_orders }};
+        const duration = 2000; // مدة العد بالمللي ثانية
+        const counter = document.getElementById('ordersCounter');
+        const startTime = Date.now();
+
+        function updateCounter() {
+            const currentTime = Date.now();
+            const elapsedTime = currentTime - startTime;
+
+            if (elapsedTime < duration) {
+                const value = Math.floor((elapsedTime / duration) * finalValue);
+                counter.textContent = value;
+                requestAnimationFrame(updateCounter);
+            } else {
+                counter.textContent = finalValue;
+            }
+        }
+
+        updateCounter();
+    });
+</script>
+
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title text-center mb-4">حاجات مهمة لازم تعرفها</h3>
+                <div class="alert alert-warning">
+                    <ul class="mb-0">
+                        <li class="mb-2"><strong>أقل رصيد ممكن تشحنه هو 20 جنيه.</strong></li>
+                        <li class="mb-2">هنشحنلك الرصيد خلال دقايق، وبحد أقصى 30 دقيقة من وقت ما تأكد التحويل.</li>
+                        <li class="mb-2"><strong>مش هنشحن الرصيد غير لما تبعت سكرين شوت بالتحويل.</strong></li>
+                        <li class="mb-2">عندك أي سؤال كلمنا على الواتساب: {{ "+201012874414" }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title text-center mb-4">ليه تختار خدمتنا لشحن رصيد فودافون؟</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="feature-box p-3 mb-3">
+                            <h4><i class="bi bi-piggy-bank text-primary me-2"></i>هتوفر فلوس كتير</h4>
+                            <p>بنقدملك خدمة شحن رصيد فودافون بخصم 21% من قيمة الرصيد، يعني هتوفر فلوس كتير خصوصاً لو بتشحن كتير.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="feature-box p-3 mb-3">
+                            <h4><i class="bi bi-lightning-charge text-primary me-2"></i>شحن سريع</h4>
+                            <p>بنشحن الرصيد خلال دقايق من ما بتبعت صورة التحويل، وبحد أقصى 30 دقيقة في أوقات الزحمة.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="feature-box p-3 mb-3">
+                            <h4><i class="bi bi-shield-check text-primary me-2"></i>أمان وثقة</h4>
+                            <p>خدمتنا آمنة 100% وبنحافظ على بياناتك الشخصية، وبنقدم خدمة تقدر تثق فيها.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="feature-box p-3 mb-3">
+                            <h4><i class="bi bi-headset text-primary me-2"></i>دعم فني على طول</h4>
+                            <p>فريق الدعم الفني موجود على مدار الساعة للرد على أي سؤال وحل أي مشكلة تقابلك في شحن الرصيد.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

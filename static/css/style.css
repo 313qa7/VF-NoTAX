@@ -1,0 +1,354 @@
+body {
+    font-family: 'Cairo', sans-serif;
+    background-color: #f8f9fa;
+    direction: rtl;
+    font-size: 18px; /* زيادة حجم الخط الافتراضي */
+}
+
+.prayer-banner {
+    background-color: #28a745;
+    color: white;
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.support-banner {
+    background-color: #f8f9fa;
+    color: #333;
+    border-bottom: 1px solid #e9ecef;
+    font-size: 14px;
+}
+
+.container {
+    max-width: 900px; /* زيادة عرض الصفحة */
+    margin: 30px auto;
+    padding: 25px; /* زيادة التباعد الداخلي */
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.15); /* تحسين الظل */
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    color: #007bff;
+    margin-bottom: 15px;
+    font-size: 36px; /* زيادة حجم العنوان الرئيسي */
+    font-weight: bold;
+}
+
+.header p {
+    font-size: 20px; /* زيادة حجم النص تحت العنوان */
+    margin-bottom: 15px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+/* تحسين حجم العناوين */
+h2 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+h3 {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* تحسين حجم التسميات */
+.form-label {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    width: 100%;
+    padding: 15px; /* زيادة حجم الزر */
+    font-size: 22px; /* زيادة حجم النص في الزر */
+    font-weight: bold;
+    border-radius: 8px; /* تحسين شكل الزر */
+}
+
+.btn-primary:hover {
+    background-color: #0069d9;
+    border-color: #0062cc;
+}
+
+.price-comparison {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.price-comparison h3 {
+    color: #007bff;
+    margin-bottom: 15px;
+    font-size: 24px; /* زيادة حجم العنوان */
+    font-weight: bold;
+}
+
+.price-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+}
+
+.price-item.highlight {
+    background-color: #e8f4ff;
+    border-left: 3px solid #007bff;
+}
+
+.price-label {
+    font-weight: bold;
+    font-size: 18px; /* زيادة حجم النص */
+}
+
+.price-value {
+    font-weight: bold;
+    color: #28a745;
+    font-size: 20px; /* زيادة حجم القيمة */
+}
+
+.vodafone-number {
+    font-size: 32px; /* زيادة حجم رقم فودافون */
+    font-weight: bold;
+    text-align: center;
+    margin: 25px 0;
+    color: #e60000;
+    padding: 10px;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+}
+
+.thank-you {
+    text-align: center;
+    padding: 50px 0;
+}
+
+.thank-you h2 {
+    color: #28a745;
+    margin-bottom: 25px;
+    font-size: 32px; /* زيادة حجم العنوان */
+    font-weight: bold;
+}
+
+.thank-you p {
+    font-size: 22px; /* زيادة حجم النص */
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+.thank-you .btn {
+    margin-top: 20px;
+}
+
+/* SEO Enhancements - New Styles */
+.feature-box {
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.feature-box:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+}
+
+.feature-box h4 {
+    color: #007bff;
+    font-size: 22px; /* زيادة حجم العنوان */
+    margin-bottom: 12px;
+    font-weight: bold;
+}
+
+.feature-box p {
+    color: #6c757d;
+    margin-bottom: 0;
+    font-size: 18px; /* زيادة حجم النص */
+    line-height: 1.5;
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.step-content h5 {
+    color: #007bff;
+    margin-bottom: 5px;
+}
+
+.step-content p {
+    color: #6c757d;
+    margin-bottom: 0;
+}
+
+/* Responsive Improvements */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    .feature-box {
+        margin-bottom: 15px;
+    }
+}
+
+/* SEO Keywords Highlighting */
+.keyword-highlight {
+    font-weight: bold;
+    color: #007bff;
+}
+
+/* Improved Accessibility and Mobile Input */
+a:focus, button:focus, input:focus, textarea:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}
+
+/* تحسينات للأجهزة المحمولة */
+input[type="number"],
+input[type="text"],
+input[type="tel"] {
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+    appearance: none;
+    font-size: 20px; /* زيادة حجم النص في حقول الإدخال */
+    padding: 15px; /* زيادة التباعد الداخلي */
+    height: auto;
+    border-radius: 8px;
+    border: 2px solid #ddd;
+}
+
+/* إزالة أسهم الزيادة والنقصان من حقول الأرقام */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* زيادة حجم الأزرار على الأجهزة المحمولة */
+@media (max-width: 768px) {
+    body {
+        font-size: 16px; /* حجم خط مناسب للموبايل */
+    }
+
+    .container {
+        padding: 15px;
+        margin: 15px auto;
+    }
+
+    .header h1 {
+        font-size: 28px;
+    }
+
+    .header p {
+        font-size: 18px;
+    }
+
+    .btn {
+        padding: 15px;
+        font-size: 20px;
+    }
+
+    input[type="number"],
+    input[type="text"],
+    input[type="tel"] {
+        padding: 15px;
+        font-size: 18px;
+        height: auto;
+    }
+
+    .vodafone-number {
+        font-size: 24px;
+    }
+
+    .thank-you h2 {
+        font-size: 26px;
+    }
+
+    .thank-you p {
+        font-size: 18px;
+    }
+}
+
+/* تحسين التنبيهات */
+.alert {
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    font-size: 18px;
+}
+
+.alert p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+.alert-info {
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+    color: #0c5460;
+}
+
+.alert-warning {
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+    color: #856404;
+}
+
+.alert h4 {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* Print Styles for SEO */
+@media print {
+    body {
+        font-size: 12pt;
+    }
+
+    .container {
+        box-shadow: none;
+        max-width: 100%;
+    }
+
+    .prayer-banner, .btn {
+        display: none;
+    }
+}
